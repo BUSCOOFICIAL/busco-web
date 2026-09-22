@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BUSCO | Próximamente</title>
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="description" content="BUSCO está preparando una nueva forma de encontrar, comparar y elegir herramientas digitales, software e inteligencia artificial.">
+  <style>
+    :root{
+      --bg:#02050a; --white:#f7fbff; --muted:#9eabba;
+      --cyan:#18dfff; --violet:#8d79ff; --pink:#ff39b9;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,"Segoe UI",Arial,sans-serif;
+      color:var(--white);
+      background:
+        radial-gradient(900px 500px at 80% 15%,rgba(24,223,255,.10),transparent 65%),
+        radial-gradient(700px 500px at 20% 80%,rgba(255,57,185,.07),transparent 65%),
+        linear-gradient(180deg,#02050a 0%,#050914 50%,#02050a 100%);
+      overflow:hidden;
+    }
+    body:before{
+      content:""; position:fixed; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+      background-size:64px 64px; opacity:.18; pointer-events:none;
+      mask-image:linear-gradient(to bottom,black,transparent 85%);
+    }
+    .wrap{min-height:100%;display:grid;place-items:center;padding:32px;text-align:center;position:relative;z-index:1}
+    .panel{
+      width:min(860px,100%);padding:54px 42px;border:1px solid rgba(137,242,255,.16);
+      border-radius:22px;background:linear-gradient(145deg,rgba(7,16,29,.56),rgba(2,8,16,.64));
+      backdrop-filter:blur(24px);box-shadow:0 28px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.035)
+    }
+    .brand{display:inline-flex;align-items:center;font-size:clamp(42px,8vw,76px);font-weight:800;letter-spacing:-.055em;margin-bottom:18px}
+    .brand .o{
+      display:inline-grid;place-items:center;width:.82em;height:.82em;margin-left:.03em;border:3px solid transparent;
+      border-radius:50%;background:linear-gradient(var(--bg),var(--bg)) padding-box,
+      linear-gradient(110deg,var(--cyan),var(--violet),var(--pink)) border-box;
+      box-shadow:0 0 18px rgba(24,223,255,.20),0 0 22px rgba(255,57,185,.12);position:relative
+    }
+    .brand .o:after{
+      content:"";width:.28em;height:3px;position:absolute;right:-.19em;bottom:.02em;transform:rotate(45deg);
+      transform-origin:left center;border-radius:999px;background:linear-gradient(90deg,var(--violet),var(--pink));
+      box-shadow:0 0 10px rgba(255,57,185,.28)
+    }
+    .eyebrow{font-size:11px;font-weight:800;letter-spacing:.24em;color:#8ceeff;text-transform:uppercase;margin-bottom:14px}
+    h1{margin:0;font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-.04em}
+    .grad{background:linear-gradient(90deg,#ff72cf,#ffffff 48%,#72ebff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    p{max-width:700px;margin:22px auto 0;color:var(--muted);font-size:16px;line-height:1.7}
+    .line{width:120px;height:2px;margin:30px auto 0;background:linear-gradient(90deg,var(--pink),var(--violet),var(--cyan));border-radius:999px;
+      box-shadow:0 0 14px rgba(24,223,255,.28),0 0 14px rgba(255,57,185,.18)}
+    .soon{margin-top:22px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#c4cfdb;font-weight:750}
+    .footer{margin-top:34px;color:#6f7e90;font-size:11px}
+    @media(max-width:620px){.panel{padding:40px 24px}p{font-size:14px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="panel">
+      <div class="brand">BUSC<span class="o"></span></div>
+      <div class="eyebrow">Estamos preparando BUSCO</div>
+      <h1>Encuentra. Compara. <span class="grad">Elige mejor.</span></h1>
+      <p>Estamos construyendo una nueva forma de encontrar, comparar y elegir herramientas digitales, software e inteligencia artificial según lo que realmente necesitas.</p>
+      <div class="line"></div>
+      <div class="soon">Muy pronto</div>
+      <div class="footer">BUSCO · Busca · Crea · Impulsa</div>
+    </section>
+  </main>
+</body>
+</html>
