@@ -1,0 +1,22 @@
+# Apache only; public web/ must be the document root; control/ is mounted separately.
+DirectoryIndex index.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Remove index.html aliases in one redirect, retaining the stable directory URL.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[?\s] [NC]
+RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)(q|search|filter|categoria)= [NC]
+RewriteRule ^ - [E=BUSCO_NOINDEX:1]
+</IfModule>
+<IfModule mod_headers.c>
+Header always set X-Robots-Tag "noindex, follow" env=BUSCO_NOINDEX
+<Files "config.js">
+Header set Cache-Control "no-cache"
+</Files>
+</IfModule>
+
+<IfModule mod_headers.c>
+<Files "portfolio.html">
+Header always set X-Robots-Tag "noindex, follow"
+</Files>
+</IfModule>

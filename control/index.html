@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BUSCO Control V4 · CRM</title>
+<style>
+:root{--bg:#02050a;--panel:#07101a;--cyan:#18dfff;--cyan2:#89f2ff;--pink:#ff2fb7;--violet:#9a69ff;--white:#f7fbff;--muted:#aeb9ca;--line:rgba(154,215,244,.18);--green:#52e6a6;--amber:#ffc766;--red:#ff6c86}
+*{box-sizing:border-box}body{margin:0;background:#02050a;color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 560px at 82% 9%,rgba(22,153,226,.09),transparent 63%),radial-gradient(760px 520px at 18% 32%,rgba(255,47,183,.05),transparent 65%)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.09;background-image:linear-gradient(rgba(255,255,255,.014) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:62px 62px}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:11px}.wrap{width:min(1500px,calc(100% - 28px));margin:auto}
+.top{position:sticky;top:12px;z-index:40;width:min(1500px,calc(100% - 28px));height:76px;margin:12px auto 0;padding:8px 14px 8px 18px;display:flex;align-items:center;border:1px solid rgba(173,229,252,.20);border-radius:22px;background:linear-gradient(180deg,rgba(8,17,29,.66),rgba(2,8,16,.58));backdrop-filter:blur(27px);box-shadow:0 18px 55px rgba(0,0,0,.34)}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:34px;height:34px;border:1px solid var(--cyan);border-radius:50%;position:relative;box-shadow:0 0 10px rgba(24,223,255,.4),0 0 12px rgba(255,47,183,.2)}.logo:before{content:"";position:absolute;inset:8px;border:2px solid var(--cyan);border-radius:50%}.logo:after{content:"";position:absolute;width:10px;height:3px;right:1px;bottom:4px;transform:rotate(45deg);background:linear-gradient(90deg,var(--violet),var(--pink));border-radius:99px}
+.brand b{font-size:20px}.brand small{display:block;color:#7f92a8;font-size:9px;letter-spacing:.13em;margin-top:3px}.topright{margin-left:auto;display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;gap:7px;align-items:center;border:1px solid rgba(137,242,255,.18);border-radius:999px;background:rgba(3,10,18,.54);padding:8px 11px;color:#c4d4e4;font-size:10px;font-weight:800}.online{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(82,230,166,.7)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border:0;border-radius:999px;background:rgba(2,8,15,.38);color:#fff;font-size:10px;font-weight:850}.btn:before{content:"";position:absolute;inset:-1px;padding:1px;border-radius:inherit;background:linear-gradient(105deg,#13e5ff,#8a78ff 53%,#ff38ba);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}.btn:hover{transform:translateY(-1px)}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:18px;padding:18px 0 30px}.side{position:sticky;top:106px;height:calc(100vh - 120px);border:1px solid rgba(145,215,244,.12);border-radius:18px;background:linear-gradient(145deg,rgba(8,18,31,.58),rgba(2,8,16,.66));padding:12px}.nav{width:100%;padding:12px;margin:0 0 5px;border:0;border-radius:12px;background:transparent;color:#9fb0c3;text-align:left;font-weight:760;font-size:12px}.nav:hover,.nav.active{color:#fff;background:linear-gradient(100deg,rgba(24,223,255,.10),rgba(154,105,255,.07),rgba(255,47,183,.10))}.view{display:none}.view.active{display:block}
+.head{display:flex;align-items:end;gap:20px;margin:10px 4px 20px}.head h1{margin:0;font-size:34px;letter-spacing:-.045em}.head p{margin:6px 0 0;color:#8fa0b3;font-size:13px}.head .actions{margin-left:auto}
+.grid{display:grid;gap:14px}.metrics{grid-template-columns:repeat(4,1fr)}.card{border:1px solid rgba(113,203,240,.18);border-radius:16px;background:linear-gradient(155deg,rgba(7,16,29,.66),rgba(2,8,16,.77));box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 16px 34px rgba(0,0,0,.26);padding:18px}.card.pink{border-color:rgba(255,115,205,.19)}
+.ml{color:#8da0b4;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.mv{font-size:30px;font-weight:800;margin:10px 0 3px}.ms{font-size:11px;color:#6f8297}.cyan{color:var(--cyan2)}.pink{color:#ff77d8}.green{color:var(--green)}.amber{color:var(--amber)}
+.two{grid-template-columns:1.4fr .9fr;margin-top:14px}.barrow{display:grid;grid-template-columns:120px 1fr 50px;gap:12px;align-items:center;margin:13px 0}.bar{height:9px;border-radius:999px;background:#0a1420;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink))}
+.alert{padding:12px;border:1px solid rgba(255,199,102,.18);background:rgba(255,199,102,.045);border-radius:12px;margin:8px 0;font-size:11px}.alert strong{display:block;color:#ffd78b}
+.toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.field,select,textarea{border:1px solid rgba(137,242,255,.14);border-radius:11px;background:rgba(2,8,15,.7);color:#eef7ff;padding:10px 11px;outline:none}.toolbar .field{width:280px}.toolbar select{min-width:150px}
+.table{overflow:auto;border:1px solid rgba(137,242,255,.10);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.055);text-align:left;font-size:11px}th{background:#06101a;color:#8195aa;font-size:9px;text-transform:uppercase;letter-spacing:.08em}.status{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:800;background:rgba(255,255,255,.04)}.status.ok{color:#9ff1c7}.status.wait{color:#ffd78b}.status.bad{color:#ff9eb0}.mini{border:1px solid rgba(137,242,255,.13);background:rgba(255,255,255,.02);color:#c7d7e7;border-radius:8px;padding:6px 8px;font-size:10px}.empty{padding:30px;text-align:center;color:#708399}
+.modalbg{position:fixed;inset:0;z-index:100;background:rgba(0,3,8,.8);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}.modalbg.open{display:flex}.modal{width:min(850px,100%);max-height:90vh;overflow:auto;border:1px solid rgba(137,242,255,.22);border-radius:20px;background:linear-gradient(145deg,#07111d,#020811);padding:22px}.modalhead{display:flex}.modalhead h2{margin:0}.close{margin-left:auto;background:none;border:0;color:#fff;font-size:24px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.full{grid-column:1/-1}label{display:block;color:#8194a8;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}.formgrid input,.formgrid select,.formgrid textarea{width:100%}.formactions{display:flex;gap:8px;justify-content:end;margin-top:18px}
+.note{padding:13px;border:1px solid rgba(154,105,255,.2);background:rgba(154,105,255,.06);border-radius:12px;color:#c9c5e8;font-size:11px;line-height:1.55}.code{font-family:Consolas,monospace;background:#01050a;border:1px solid rgba(137,242,255,.1);padding:12px;border-radius:12px;color:#9cefff;font-size:11px;white-space:pre-wrap}
+@media(max-width:1000px){.metrics{grid-template-columns:1fr 1fr}.layout{grid-template-columns:180px 1fr}.two{grid-template-columns:1fr}}@media(max-width:720px){.layout{display:block}.side{position:static;height:auto;display:flex;overflow:auto}.nav{width:auto;white-space:nowrap}.metrics{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+
+<style id="busco-control-v3-extra">
+.global-search{position:relative;width:min(420px,34vw);margin-left:auto;margin-right:8px}
+.global-search input{width:100%;height:38px;padding:0 38px 0 13px;border:1px solid rgba(137,242,255,.16);border-radius:999px;background:rgba(2,8,15,.55);color:#f5fbff;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.global-search input:focus{border-color:rgba(24,223,255,.42);box-shadow:0 0 0 3px rgba(24,223,255,.055)}
+.global-search:after{content:'⌕';position:absolute;right:13px;top:8px;color:#78eaff;font-size:17px;pointer-events:none}
+.global-results{position:absolute;left:0;right:0;top:45px;display:none;z-index:100;border:1px solid rgba(137,242,255,.18);border-radius:14px;background:rgba(3,10,18,.97);backdrop-filter:blur(20px);box-shadow:0 22px 60px rgba(0,0,0,.55);padding:6px;max-height:360px;overflow:auto}
+.global-results.open{display:block}.global-result{display:flex;align-items:center;gap:10px;width:100%;padding:10px;border:0;border-radius:10px;background:transparent;color:#fff;text-align:left}.global-result:hover{background:linear-gradient(90deg,rgba(24,223,255,.065),rgba(255,47,183,.055))}.global-result i{font-style:normal;width:24px;height:24px;display:grid;place-items:center;border:1px solid rgba(137,242,255,.14);border-radius:7px;color:#86edff}.global-result b{font-size:11px}.global-result small{display:block;color:#778a9f;margin-top:2px;font-size:9px}
+.owner{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:850;border:1px solid rgba(137,242,255,.14);background:rgba(24,223,255,.035);color:#aeefff}.owner.esther{border-color:rgba(137,242,255,.22);color:#83eaff}.owner.clara{border-color:rgba(255,91,198,.20);background:rgba(255,47,183,.035);color:#ff9ddd}.owner.both{border-color:rgba(154,105,255,.24);color:#c4baff;background:rgba(154,105,255,.04)}
+.doc-count{display:inline-flex;align-items:center;gap:5px;color:#b8c8d8;font-size:9px}.doc-panel{margin-top:12px;border-top:1px solid rgba(255,255,255,.06);padding-top:14px}.doc-upload{display:grid;grid-template-columns:1fr 170px 1.2fr auto;gap:8px;align-items:end;margin:12px 0}.doc-list{display:grid;gap:8px}.doc-row{display:grid;grid-template-columns:minmax(0,1.2fr) 130px 95px 110px;gap:8px;align-items:center;padding:10px 11px;border:1px solid rgba(137,242,255,.10);border-radius:11px;background:rgba(255,255,255,.015)}.doc-row b{font-size:11px}.doc-row small{display:block;color:#71859b;font-size:9px;margin-top:2px}.doc-actions{display:flex;gap:5px;justify-content:flex-end}.file-help{color:#70849a;font-size:9px;line-height:1.45;margin-top:6px}
+.catalog-actions{display:flex;gap:7px;margin-left:auto}.perf-table{width:100%;border-collapse:collapse;min-width:0}.perf-table th,.perf-table td{font-size:10px;padding:9px 8px}.perf-table th{position:static;background:transparent}.sync-note{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.sync-box{padding:12px;border:1px solid rgba(137,242,255,.11);border-radius:12px;background:rgba(255,255,255,.012);font-size:10px;line-height:1.5;color:#92a4b8}.sync-box b{display:block;color:#fff;margin-bottom:4px}
+@media(max-width:980px){.global-search{width:min(300px,30vw)}.doc-upload{grid-template-columns:1fr 1fr}.doc-row{grid-template-columns:1fr 100px}.doc-row>*:nth-child(3){display:none}.sync-note{grid-template-columns:1fr}}
+@media(max-width:720px){.global-search{order:3;width:100%;margin:8px 0 0}.top{height:auto;min-height:76px;flex-wrap:wrap}.topright{margin-left:auto}.doc-upload{grid-template-columns:1fr}.doc-row{grid-template-columns:1fr}.catalog-actions{width:100%;margin-left:0}.catalog-actions .btn{flex:1}}
+</style>
+
+<script src="../config.js"></script><script src="core.js"></script><meta name="robots" content="noindex,nofollow,noarchive"></head>
+<body>
+<header class="top">
+  <div class="brand"><div class="logo"></div><div><b>BUSCO Control</b><small>AFILIACIÓN · CLIENTES · COMISIONES</small></div></div>
+  <div class="global-search"><input id="globalQ" placeholder="Buscar en todo BUSCO…" autocomplete="off" oninput="globalSearch(this.value)" onfocus="globalSearch(this.value)"><div id="globalResults" class="global-results"></div></div>
+  <div class="topright"><span class="pill"><i class="online"></i><span id="mode">Modo local</span></span><button class="btn" onclick="exportCSV()">Copia de datos</button></div>
+</header>
+<div class="wrap layout">
+  <aside class="side">
+    <button class="nav active" data-v="dash">Resumen</button><button class="nav" data-v="tools">Herramientas / enlaces</button><button class="nav" data-v="events">Actividad</button><button class="nav" data-v="clients">Clientes / proyectos</button><button class="nav" data-v="money">Comisiones afiliación</button><button class="nav" data-v="billing">Facturación</button><button class="nav" data-v="issues">Incidencias</button><button class="nav" data-v="settings">Ajustes</button>
+  </aside>
+  <main>
+    <section class="view active" id="v-dash">
+      <div class="head"><div><h1>Control total de BUSCO</h1><p>De la primera visita al cobro de la comisión.</p></div></div>
+      <div class="grid metrics">
+        <div class="card"><div class="ml">Clics afiliados · 30 días</div><div class="mv cyan" id="mClicks">0</div><div class="ms">Enlaces externos registrados</div></div>
+        <div class="card pink"><div class="ml">Visitantes únicos</div><div class="mv pink" id="mVisitors">0</div><div class="ms">IDs anónimos conocidos</div></div>
+        <div class="card"><div class="ml">Conversiones</div><div class="mv green" id="mConv">0</div><div class="ms">Reportadas / conciliadas</div></div>
+        <div class="card pink"><div class="ml">Comisión pendiente</div><div class="mv amber" id="mPending">0,00 €</div><div class="ms">Aún no cobrada</div></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Embudo BUSCO</h3><div id="funnel"></div></div>
+        <div class="card pink"><h3>Avisos</h3><div id="alerts"></div></div>
+      </div>
+      <div class="card" style="margin-top:14px"><div class="section-title"><h3>Rendimiento por herramienta</h3><span>Clics, conversiones e ingresos</span></div><div id="toolPerformance"></div></div>
+    </section>
+    <section class="view" id="v-tools">
+      <div class="head"><div><h1>Herramientas y afiliaciones</h1><p>Qué publicamos, cuánto paga y bajo qué condiciones.</p></div><div class="actions"><button class="btn" onclick="toolModal()">+ Nueva herramienta</button></div></div>
+      <div class="toolbar"><input id="toolQ" class="field" placeholder="Buscar…" oninput="renderTools()"><select id="toolF" onchange="renderTools()"><option value="">Todos los estados</option><option>Activa</option><option>Pendiente</option><option>Rechazada</option><option>Sin solicitar</option></select><select id="toolPublicF" onchange="renderTools()"><option value="">Web: todos</option><option>Publicado</option><option>Borrador</option><option>Oculto</option></select><div class="catalog-actions"><button class="btn" onclick="document.getElementById('catalogImport').click()">Importar catálogo</button><button class="btn" onclick="exportCatalogJSON()">Exportar catálogo JSON</button></div><input id="catalogImport" class="hidden" type="file" accept=".csv,.json,.xlsx" onchange="importCatalogFile(this.files[0]);this.value=''"/></div>
+      <div class="table"><table><thead><tr><th>Herramienta</th><th>Web</th><th>Red</th><th>Comisión</th><th>Cookie</th><th>Atribución</th><th>Enlace interno</th><th>Revisión</th><th></th></tr></thead><tbody id="tbTools"></tbody></table></div>
+    </section>
+    <section class="view" id="v-events">
+      <div class="head"><div><h1>Actividad</h1><p>Visitas, clics de afiliación y WhatsApp.</p></div></div>
+      <div class="table"><table><thead><tr><th>Fecha</th><th>Evento</th><th>Visitante</th><th>Herramienta</th><th>Origen</th><th>Página</th></tr></thead><tbody id="tbEvents"></tbody></table></div>
+    </section>
+    
+    <section class="view" id="v-clients">
+      <div class="head"><div><h1>Clientes y proyectos</h1><p>Trabajos que llegan por BUSCO o por cualquier otro canal: web, CRM, automatización, software o proyecto a medida.</p></div><div class="actions"><button class="btn" onclick="clientModal()">+ Nuevo cliente / proyecto</button></div></div>
+      <div class="toolbar"><input id="clientQ" class="field" placeholder="Buscar cliente, proyecto, email…" oninput="renderClients()"><select id="clientOwnerF" onchange="renderClients()"><option value="">Todas las responsables</option><option>Clara</option><option>Esther</option><option>Clara + Esther</option></select><select id="clientStatusF" onchange="renderClients()"><option value="">Todos los estados</option><option>Prospecto</option><option>Presupuesto enviado</option><option>Aceptado</option><option>En curso</option><option>Entregado</option><option>Cerrado</option></select></div>
+      <div class="table"><table><thead><tr><th>Cliente</th><th>Responsable</th><th>Proyecto</th><th>Origen</th><th>Estado</th><th>Presupuesto</th><th>Cobrado</th><th>Documentos</th><th></th></tr></thead><tbody id="tbClients"></tbody></table></div>
+    </section>
+    <section class="view" id="v-money">
+      <div class="head"><div><h1>Comisiones de afiliación</h1><p>Solo ingresos de herramientas y enlaces de afiliado: lo esperado, lo declarado y lo cobrado.</p></div><div class="actions"><button class="btn" onclick="moneyModal()">+ Nueva comisión</button></div></div>
+      <div class="table"><table><thead><tr><th>Fecha</th><th>Herramienta</th><th>Venta</th><th>Esperado</th><th>Reportado</th><th>Estado</th><th>Diferencia</th><th></th></tr></thead><tbody id="tbMoney"></tbody></table></div>
+    </section>
+    <section class="view" id="v-billing">
+      <div class="head"><div><h1>Facturación e ingresos</h1><p>Una sola vista para saber qué ha entrado por afiliación y qué ha entrado por trabajos propios.</p></div><div class="actions"><button class="btn" onclick="billingModal()">+ Ingreso / factura</button></div></div>
+      <div class="grid metrics">
+        <div class="card"><div class="ml">Trimestre actual</div><div class="mv cyan" id="bQuarterTotal">0,00 €</div><div class="ms">Ingresos marcados como cobrados</div></div>
+        <div class="card pink"><div class="ml">Afiliación · trimestre</div><div class="mv pink" id="bAffiliateTotal">0,00 €</div><div class="ms">Comisiones cobradas</div></div>
+        <div class="card"><div class="ml">Servicios · trimestre</div><div class="mv green" id="bServicesTotal">0,00 €</div><div class="ms">Proyectos y trabajos cobrados</div></div>
+        <div class="card pink"><div class="ml">Pendiente de cobro</div><div class="mv amber" id="bPendingTotal">0,00 €</div><div class="ms">Facturas / ingresos todavía pendientes</div></div>
+      </div>
+      <div class="toolbar" style="margin-top:14px">
+        <select id="billingYear" onchange="renderBilling()"></select>
+        <select id="billingQuarter" onchange="renderBilling()"><option value="all">Todo el año</option><option value="1">T1 · Ene-Mar</option><option value="2">T2 · Abr-Jun</option><option value="3">T3 · Jul-Sep</option><option value="4">T4 · Oct-Dic</option></select>
+        <button class="btn" onclick="exportQuarterCSV()">Exportar para gestoría</button>
+      </div>
+      <div class="note" style="margin-bottom:12px">Resumen interno de ingresos y facturas. Sirve para entregar a gestoría y cuadrar cifras, pero no sustituye la contabilidad ni determina por sí solo el tratamiento fiscal de cada comisión.</div>
+      <div class="table"><table><thead><tr><th>Fecha</th><th>Origen</th><th>Cliente / herramienta</th><th>Concepto</th><th>Nº factura / doc.</th><th>Base</th><th>IVA</th><th>Total</th><th>Cobrado</th><th>Estado</th><th></th></tr></thead><tbody id="tbBilling"></tbody></table></div>
+    </section>
+
+    <section class="view" id="v-issues">
+      <div class="head"><div><h1>Incidencias</h1><p>Enlaces rotos, comisiones no atribuidas y reclamaciones.</p></div><div class="actions"><button class="btn" onclick="issueModal()">+ Incidencia</button></div></div>
+      <div class="table"><table><thead><tr><th>Fecha</th><th>Herramienta</th><th>Tipo</th><th>Evidencia</th><th>Importe</th><th>Estado</th><th></th></tr></thead><tbody id="tbIssues"></tbody></table></div>
+    </section>
+    <section class="view" id="v-settings">
+      <div class="head"><div><h1>Ajustes</h1><p>Acceso compartido para todas las personas autorizadas.</p></div></div>
+      <div class="grid two">
+        <div class="card"><h3>Supabase</h3><div class="note">Sin configurar nada, este CRM funciona ya en este navegador. Para que todas las personas autorizadas vean lo mismo desde lugares distintos, conectan este mismo BUSCO Control al mismo proyecto de Supabase.</div>
+          <p><label>Project URL</label><input id="sbUrl" class="field" style="width:100%" placeholder="https://xxxx.supabase.co"></p>
+          <p><label>Anon key</label><textarea id="sbKey" style="width:100%;min-height:90px"></textarea></p>
+          <p><label>Email</label><input id="sbEmail" class="field" style="width:100%"></p><p><label>Contraseña</label><input id="sbPass" type="password" class="field" style="width:100%"></p>
+          <button class="btn" onclick="login()">Conectar</button><p class="small muted" id="loginInfo">No conectado</p>
+        </div>
+        <div class="card pink"><h3>Tracker para BUSCO</h3><p class="small muted">Registra el clic antes de sacar al visitante a la herramienta externa. Así tienes vuestra propia evidencia de cuándo entró, desde qué página y con qué visitor ID.</p>
+          <div class="code">&lt;script&gt;
+window.BUSCO_CONFIG={supabaseUrl:"URL_HTTPS",publishableKey:"CLAVE_PUBLICABLE",catalogMode:"embedded"};
+&lt;/script&gt;
+&lt;script src="busco-tracker-v4.js"&gt;&lt;/script&gt;</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px"><h3>Catálogo dinámico · una sola fuente</h3><div class="note">La idea es que BUSCO Control termine siendo el lugar donde se actualiza cada herramienta una sola vez. Desde aquí puedes importar el catálogo completo y exportar un JSON limpio para que la web pública lea esos datos sin mantener 46 fichas actuales a mano.</div><div class="sync-note"><div class="sync-box"><b>1 · Catálogo</b>Nombre, descripción, categoría, web oficial y estado público.</div><div class="sync-box"><b>2 · Afiliación</b>Enlace, comisión, cookie, atribución y condiciones, solo para uso interno.</div><div class="sync-box"><b>3 · Rendimiento</b>Clics y conversiones se cruzan para saber qué herramientas funcionan de verdad.</div></div></div>
+    </section>
+  </main>
+</div>
+<div class="modalbg" id="mbg" onclick="if(event.target===this)closeM()"><div class="modal"><div class="modalhead"><h2 id="mtitle">Editar</h2><button class="close" onclick="closeM()">×</button></div><div id="mcontent"></div></div></div>
+<script>
+const K="busco_control_v4";let db={tools:[],events:[],clients:[],client_documents:[],money:[],billing:[],issues:[]},remote={url:"",key:"",token:"",email:""};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2),esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])),money=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"}).format(Number(n)||0),fmt=d=>d?new Intl.DateTimeFormat("es-ES",{dateStyle:"short",timeStyle:"short"}).format(new Date(d)):"—",slug=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+function load(){
+  try{
+    let fresh=JSON.parse(localStorage.getItem(K));
+    if(fresh) db=fresh;
+    else{
+      let v2=JSON.parse(localStorage.getItem("busco_control_v3")||localStorage.getItem("busco_control_v3")||localStorage.getItem("busco_control_v2")||"null");
+      if(v2) db={...db,...v2,client_documents:v2.client_documents||[]};
+      else{
+        let old=JSON.parse(localStorage.getItem("busco_control_v1")||"null");
+        if(old){
+          db.tools=old.tools||[];db.events=old.events||[];db.money=old.money||[];db.issues=old.issues||[];
+          db.clients=(old.leads||[]).map(x=>({...x,project:x.interest||"",source:x.first_source||"",payment_status:"Pendiente",owner:"Clara + Esther"}));
+        }
+      }
+    }
+  }catch(e){}
+  ["tools","events","clients","client_documents","money","billing","issues"].forEach(x=>db[x] ||= []);
+}
+function save(){localStorage.setItem(K,JSON.stringify(db));render()}
+$$(".nav").forEach(b=>b.onclick=()=>{$$(".nav").forEach(x=>x.classList.toggle("active",x===b));$$(".view").forEach(v=>v.classList.toggle("active",v.id==="v-"+b.dataset.v))});
+function st(s){s=(s||"").toLowerCase();return s.includes("activa")||s.includes("pagada")||s.includes("cliente")||s.includes("cerrado")||s.includes("entregado")||s.includes("publicado")?"ok":s.includes("pend")||s.includes("lead")||s.includes("parcial")||s.includes("aceptado")||s.includes("curso")||s.includes("presupuesto")||s.includes("prospecto")||s.includes("borrador")?"wait":"bad"}
+function render(){renderDash();renderTools();renderEvents();renderClients();renderMoney();renderBilling();renderIssues();renderPerformance()}
+function renderDash(){let cut=Date.now()-30*86400000,e=db.events.filter(x=>new Date(x.created_at||0).getTime()>=cut),clicks=e.filter(x=>x.event_type==="affiliate_click"),vis=new Set(e.map(x=>x.visitor_id).filter(Boolean)).size,pend=db.money.filter(x=>x.status!=="Pagada").reduce((a,x)=>a+Number(x.reported||x.expected||0),0);$("#mClicks").textContent=clicks.length;$("#mVisitors").textContent=vis;$("#mConv").textContent=db.money.length;$("#mPending").textContent=money(pend);let vals=[["Visitas",e.filter(x=>x.event_type==="page_view").length],["Clic afiliado",clicks.length],["Clientes / proyectos",db.clients.length],["Conversiones",db.money.length]],mx=Math.max(1,...vals.map(x=>x[1]));$("#funnel").innerHTML=vals.map(x=>`<div class="barrow"><span>${x[0]}</span><div class="bar"><i style="width:${x[1]/mx*100}%"></i></div><b>${x[1]}</b></div>`).join("");let a=[];db.tools.forEach(t=>{if(t.review_date&&new Date(t.review_date)<new Date())a.push(`<div class="alert"><strong>${esc(t.name)}</strong>Toca revisar condiciones o comisión.</div>`);if(t.status==="Activa"&&!t.affiliate_url)a.push(`<div class="alert"><strong>${esc(t.name)}</strong>Activa pero sin enlace guardado.</div>`)});$("#alerts").innerHTML=a.join("")||'<div class="empty">Sin avisos.</div>'}
+function renderTools(){
+  let q=($("#toolQ")?.value||"").toLowerCase(),f=$("#toolF")?.value||"",pf=$("#toolPublicF")?.value||"";
+  let rows=db.tools.filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!f||x.status===f)&&(!pf||(x.public_status||"Borrador")===pf));
+  $("#tbTools").innerHTML=rows.length?rows.map(x=>`<tr><td><b>${esc(x.name)}</b><div class="muted small">${esc(x.category||"")}</div><div class="muted small">${esc((x.description||"").slice(0,80))}</div></td><td><span class="status ${st(x.public_status||'Borrador')}">${esc(x.public_status||"Borrador")}</span><div class="muted small">${x.official_url?"web oficial guardada":"sin web oficial"}</div></td><td>${esc(x.network||"—")}<br><span class="status ${st(x.status)}">${esc(x.status||"—")}</span></td><td>${esc(x.commission||"—")}${x.recurring?" · recurrente":""}</td><td>${esc(x.cookie_days||"—")}${x.cookie_days?" días":""}</td><td>${esc(x.attribution||"—")}</td><td>${esc(x.tracking_slug||slug(x.name))}</td><td>${esc(x.review_date||"—")}</td><td><button class="mini" onclick="toolModal('${x.id}')">Editar</button> <button class="mini" onclick="del('tools','${x.id}')">×</button></td></tr>`).join(""):'<tr><td colspan="9" class="empty">Aún no hay herramientas.</td></tr>'
+}
+function renderEvents(){$("#tbEvents").innerHTML=db.events.length?[...db.events].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,500).map(x=>`<tr><td>${fmt(x.created_at)}</td><td>${esc(x.event_type)}</td><td>${esc((x.visitor_id||"—").slice(0,12))}</td><td>${esc(x.tool_slug||"—")}</td><td>${esc(x.referrer||x.utm_source||"Directo")}</td><td>${esc((x.page_path||x.page_url||"—").slice(0,45))}</td></tr>`).join(""):'<tr><td colspan="6" class="empty">Aquí aparecerán los eventos del tracker.</td></tr>'}
+function ownerClass(v){return v==='Clara'?'clara':v==='Esther'?'esther':'both'}
+function renderClients(){
+  const q=($("#clientQ")?.value||"").toLowerCase(),of=$("#clientOwnerF")?.value||"",sf=$("#clientStatusF")?.value||"";
+  const rows=db.clients.filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!of||(x.owner||'Clara + Esther')===of)&&(!sf||x.status===sf));
+  $("#tbClients").innerHTML=rows.length?rows.map(x=>{
+    const budget=Number(x.budget_total||0),paid=Number(x.paid_amount||0),docs=db.client_documents.filter(d=>d.client_id===x.id).length;
+    return `<tr><td><b>${esc(x.name||x.company||"Sin nombre")}</b><div class="muted small">${esc(x.email||"")} ${esc(x.phone||"")}</div></td><td><span class="owner ${ownerClass(x.owner||'Clara + Esther')}">${esc(x.owner||'Clara + Esther')}</span></td><td><b>${esc(x.project||"—")}</b><div class="muted small">${esc(x.service_type||"")}</div></td><td>${esc(x.source||"—")}</td><td><span class="status ${st(x.status)}">${esc(x.status||"Prospecto")}</span></td><td>${money(budget)}</td><td>${money(paid)}<div class="muted small">${esc(x.payment_status||"Pendiente")}</div></td><td><span class="doc-count">▣ ${docs}</span> <button class="mini" onclick="openClientDocuments('${x.id}')">Abrir</button></td><td><button class="mini" onclick="clientModal('${x.id}')">Editar</button> <button class="mini" onclick="del('clients','${x.id}')">×</button></td></tr>`
+  }).join(""):'<tr><td colspan="9" class="empty">Todavía no hay clientes o proyectos.</td></tr>';
+}
+function quarterOf(dateStr){
+  const d=dateStr?new Date(dateStr+"T12:00:00"):new Date();
+  return Math.floor(d.getMonth()/3)+1;
+}
+function currentQuarter(){return Math.floor(new Date().getMonth()/3)+1}
+function currentYear(){return new Date().getFullYear()}
+function ensureBillingYearOptions(){
+  const sel=$("#billingYear"); if(!sel)return;
+  const years=[...new Set([currentYear(),...db.billing.map(x=>Number((x.date||"").slice(0,4))).filter(Boolean)])].sort((a,b)=>b-a);
+  const cur=sel.value||String(currentYear());
+  sel.innerHTML=years.map(y=>`<option value="${y}">${y}</option>`).join("");
+  sel.value=years.includes(Number(cur))?cur:String(years[0]||currentYear());
+}
+function filteredBilling(){
+  ensureBillingYearOptions();
+  const y=Number($("#billingYear")?.value||currentYear()), q=$("#billingQuarter")?.value||"all";
+  return db.billing.filter(x=>{
+    const d=new Date((x.date||`${y}-01-01`)+"T12:00:00");
+    return d.getFullYear()===y && (q==="all"||quarterOf(x.date)===Number(q));
+  });
+}
+function renderBilling(){
+  if(!$("#tbBilling"))return;
+  ensureBillingYearOptions();
+  const rows=filteredBilling().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+  const y=currentYear(),q=currentQuarter();
+  const qrows=db.billing.filter(x=>{
+    const d=new Date((x.date||`${y}-01-01`)+"T12:00:00");
+    return d.getFullYear()===y && quarterOf(x.date)===q;
+  });
+  const paid=qrows.filter(x=>String(x.status||"").toLowerCase().includes("pag"));
+  const total=paid.reduce((a,x)=>a+Number(x.paid_amount||x.total||0),0);
+  const aff=paid.filter(x=>x.source_type==="Afiliación").reduce((a,x)=>a+Number(x.paid_amount||x.total||0),0);
+  const svc=paid.filter(x=>x.source_type==="Servicio").reduce((a,x)=>a+Number(x.paid_amount||x.total||0),0);
+  const pending=db.billing.filter(x=>!String(x.status||"").toLowerCase().includes("pag")).reduce((a,x)=>a+Math.max(0,Number(x.total||0)-Number(x.paid_amount||0)),0);
+  $("#bQuarterTotal").textContent=money(total);$("#bAffiliateTotal").textContent=money(aff);$("#bServicesTotal").textContent=money(svc);$("#bPendingTotal").textContent=money(pending);
+  $("#tbBilling").innerHTML=rows.length?rows.map(x=>`<tr>
+    <td>${esc(x.date||"—")}</td>
+    <td><span class="status ${x.source_type==="Afiliación"?"wait":"ok"}">${esc(x.source_type||"Manual")}</span></td>
+    <td><b>${esc(x.party||"—")}</b></td>
+    <td>${esc(x.concept||"—")}</td>
+    <td>${esc(x.document_no||"—")}</td>
+    <td>${x.base_amount!==""&&x.base_amount!=null?money(x.base_amount):"—"}</td>
+    <td>${x.vat_percent!==""&&x.vat_percent!=null?esc(x.vat_percent)+"%":"—"}${x.vat_amount?` · ${money(x.vat_amount)}`:""}</td>
+    <td><b>${money(x.total)}</b></td>
+    <td>${money(x.paid_amount||0)}</td>
+    <td><span class="status ${st(x.status)}">${esc(x.status||"Pendiente")}</span></td>
+    <td><button class="mini" onclick="billingModal('${x.id}')">Editar</button> <button class="mini" onclick="del('billing','${x.id}')">×</button></td>
+  </tr>`).join(""):'<tr><td colspan="11" class="empty">No hay movimientos para este periodo.</td></tr>';
+}
+function renderMoney(){$("#tbMoney").innerHTML=db.money.length?db.money.map(x=>{let d=Number(x.reported||0)-Number(x.expected||0);return`<tr><td>${esc(x.date||"—")}</td><td><b>${esc(x.tool||"—")}</b></td><td>${money(x.sale)}</td><td>${money(x.expected)}</td><td>${money(x.reported)}</td><td><span class="status ${st(x.status)}">${esc(x.status||"Pendiente")}</span></td><td style="color:${Math.abs(d)>.01?"#ff6c86":"#52e6a6"}">${money(d)}</td><td><button class="mini" onclick="moneyModal('${x.id}')">Editar</button> <button class="mini" onclick="del('money','${x.id}')">×</button></td></tr>`}).join(""):'<tr><td colspan="8" class="empty">Aún no hay conversiones.</td></tr>'}
+function renderIssues(){$("#tbIssues").innerHTML=db.issues.length?db.issues.map(x=>`<tr><td>${esc(x.date||"—")}</td><td>${esc(x.tool||"—")}</td><td>${esc(x.type||"—")}</td><td>${esc(x.evidence||"—")}</td><td>${money(x.amount)}</td><td><span class="status ${st(x.status)}">${esc(x.status||"Abierta")}</span></td><td><button class="mini" onclick="issueModal('${x.id}')">Editar</button> <button class="mini" onclick="del('issues','${x.id}')">×</button></td></tr>`).join(""):'<tr><td colspan="7" class="empty">Sin incidencias.</td></tr>'}
+function openM(t,h){$("#mtitle").textContent=t;$("#mcontent").innerHTML=h;$("#mbg").classList.add("open")}function closeM(){$("#mbg").classList.remove("open")}
+function formActions(fn){return`<div class="formactions"><button class="btn" onclick="closeM()">Cancelar</button><button class="btn" onclick="${fn}">Guardar</button></div>`}
+function toolModal(i=""){let x=db.tools.find(v=>v.id===i)||{};openM(i?"Editar herramienta":"Nueva herramienta",`<div class="formgrid"><div><label>Nombre</label><input id="a1" value="${esc(x.name||"")}"></div><div><label>Categoría BUSCO</label><input id="a2" value="${esc(x.category||"")}"></div><div><label>Red / programa</label><input id="a3" value="${esc(x.network||"")}"></div><div><label>Estado afiliación</label><select id="a4"><option>Activa</option><option>Pendiente</option><option>Rechazada</option><option>Sin solicitar</option></select></div><div class="full"><label>Descripción pública corta</label><textarea id="a14" placeholder="Qué hace, explicado en una frase">${esc(x.description||"")}</textarea></div><div><label>Estado en la web</label><select id="a15"><option>Publicado</option><option>Borrador</option><option>Oculto</option></select></div><div><label>Web oficial</label><input id="a16" value="${esc(x.official_url||"")}"></div><div class="full"><label>Enlace afiliado</label><input id="a5" value="${esc(x.affiliate_url||"")}"></div><div><label>Comisión</label><input id="a6" placeholder="20% / 50 €" value="${esc(x.commission||"")}"></div><div><label>¿Recurrente?</label><select id="a7"><option value="false">No</option><option value="true">Sí</option></select></div><div><label>Cookie (días)</label><input id="a8" type="number" value="${esc(x.cookie_days||"")}"></div><div><label>Atribución</label><input id="a9" placeholder="Last click / First click" value="${esc(x.attribution||"")}"></div><div><label>Condiciones de pago</label><input id="a10" value="${esc(x.payout_terms||"")}"></div><div><label>Próxima revisión</label><input id="a11" type="date" value="${esc(x.review_date||"")}"></div><div><label>Contacto partner</label><input id="a12" value="${esc(x.partner_contact||"")}"></div><div class="full"><label>Notas internas</label><textarea id="a13">${esc(x.notes||"")}</textarea></div></div>${formActions(`saveTool('${i}')`)}`);$("#a4").value=x.status||"Activa";$("#a7").value=String(!!x.recurring);$("#a15").value=x.public_status||"Borrador"}
+async function saveTool(i){let row={id:i||uid(),name:$("#a1").value,category:$("#a2").value,network:$("#a3").value,status:$("#a4").value,affiliate_url:$("#a5").value,commission:$("#a6").value,recurring:$("#a7").value==="true",cookie_days:$("#a8").value,attribution:$("#a9").value,payout_terms:$("#a10").value,review_date:$("#a11").value,partner_contact:$("#a12").value,notes:$("#a13").value,description:$("#a14").value,public_status:$("#a15").value,official_url:$("#a16").value,tracking_slug:db.tools.find(t=>t.id===i)?.tracking_slug||slug($("#a1").value),updated_at:new Date().toISOString()};await upsert("tools",row);closeM()}
+function clientModal(i=""){
+  let x=db.clients.find(v=>v.id===i)||{};
+  openM(i?"Editar cliente / proyecto":"Nuevo cliente / proyecto",`<div class="formgrid">
+    <div><label>Cliente / empresa</label><input id="cl1" value="${esc(x.name||"")}"></div>
+    <div><label>Responsable</label><select id="cl17"><option>Clara</option><option>Esther</option><option>Clara + Esther</option></select></div>
+    <div><label>Estado del proyecto</label><select id="cl2"><option>Prospecto</option><option>Presupuesto enviado</option><option>Aceptado</option><option>En curso</option><option>Entregado</option><option>Cerrado</option></select></div>
+    <div><label>Email</label><input id="cl3" value="${esc(x.email||"")}"></div>
+    <div><label>Teléfono</label><input id="cl4" value="${esc(x.phone||"")}"></div>
+    <div><label>Proyecto / servicio</label><input id="cl5" placeholder="Web, CRM, automatización…" value="${esc(x.project||"")}"></div>
+    <div><label>Origen</label><input id="cl6" placeholder="BUSCO, WhatsApp, referido…" value="${esc(x.source||"")}"></div>
+    <div><label>Presupuesto acordado total €</label><input id="cl7" type="number" step=".01" value="${esc(x.budget_total||"")}"></div>
+    <div><label>Estado del cobro</label><select id="cl8"><option>Pendiente</option><option>Parcial</option><option>Pagado</option></select></div>
+    <div><label>Importe cobrado €</label><input id="cl9" type="number" step=".01" value="${esc(x.paid_amount||"")}"></div>
+    <div><label>Nº factura</label><input id="cl10" value="${esc(x.invoice_number||"")}"></div>
+    <div><label>Fecha factura</label><input id="cl11" type="date" value="${esc(x.invoice_date||"")}"></div>
+    <div><label>Base factura € (opcional)</label><input id="cl12" type="number" step=".01" value="${esc(x.invoice_base||"")}"></div>
+    <div><label>IVA % (si aplica)</label><input id="cl13" type="number" step=".01" value="${esc(x.vat_percent||"")}"></div>
+    <div><label>Total factura €</label><input id="cl14" type="number" step=".01" value="${esc(x.invoice_total||"")}"></div>
+    <div class="full"><label>Enlace / referencia principal</label><input id="cl15" value="${esc(x.invoice_file||"")}" placeholder="Drive, carpeta, nº documento…"></div>
+    <div class="full"><label>Notas</label><textarea id="cl16">${esc(x.notes||"")}</textarea></div>
+  </div>${i?`<div class="doc-panel"><div class="note">Este cliente tiene <b>${db.client_documents.filter(d=>d.client_id===i).length}</b> documentos guardados. Puedes subir presupuestos, facturas, contratos, demos, HTML, PDF, imágenes o cualquier archivo desde su apartado de Documentos.</div><div style="margin-top:10px"><button class="btn" type="button" onclick="closeM();openClientDocuments('${i}')">Abrir documentos del cliente</button></div></div>`:`<div class="note" style="margin-top:12px">Guarda primero el cliente. Después podrás añadir todos sus documentos y demos dentro de su ficha.</div>`}${formActions(`saveClient('${i}')`)}`);
+  $("#cl2").value=x.status||"Prospecto";$("#cl8").value=x.payment_status||"Pendiente";$("#cl17").value=x.owner||"Clara + Esther";
+}
+async function saveClient(i){
+  const row={id:i||uid(),name:$("#cl1").value,owner:$("#cl17").value,status:$("#cl2").value,email:$("#cl3").value,phone:$("#cl4").value,project:$("#cl5").value,source:$("#cl6").value,budget_total:+$("#cl7").value||0,payment_status:$("#cl8").value,paid_amount:+$("#cl9").value||0,invoice_number:$("#cl10").value,invoice_date:$("#cl11").value,invoice_base:$("#cl12").value===""?null:+$("#cl12").value,vat_percent:$("#cl13").value===""?null:+$("#cl13").value,invoice_total:$("#cl14").value===""?null:+$("#cl14").value,invoice_file:$("#cl15").value,notes:$("#cl16").value,updated_at:new Date().toISOString()};
+  await upsert("clients",row);await syncBillingFromClient(row);closeM();
+}
+
+function renderPerformance(){
+  const el=$("#toolPerformance");if(!el)return;
+  const clicks={};db.events.filter(e=>e.event_type==='affiliate_click').forEach(e=>{const k=e.tool_slug||'sin-herramienta';clicks[k]=(clicks[k]||0)+1});
+  const rows=db.tools.map(t=>{const slugv=t.tracking_slug||slug(t.name),cs=clicks[slugv]||0,convs=db.money.filter(m=>slug(m.tool||'')===slug(t.name||'')).length,inc=db.money.filter(m=>slug(m.tool||'')===slug(t.name||'')&&m.status==='Pagada').reduce((a,m)=>a+Number(m.reported||m.expected||0),0);return {t,cs,convs,inc}}).filter(x=>x.cs||x.convs||x.inc).sort((a,b)=>b.inc-a.inc||b.cs-a.cs).slice(0,10);
+  el.innerHTML=rows.length?`<div class="table"><table class="perf-table"><thead><tr><th>Herramienta</th><th>Clics</th><th>Conversiones</th><th>Comisión cobrada</th></tr></thead><tbody>${rows.map(x=>`<tr><td><b>${esc(x.t.name)}</b></td><td>${x.cs}</td><td>${x.convs}</td><td>${money(x.inc)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Cuando BUSCO empiece a registrar clics y conversiones, aquí verás qué herramientas rinden mejor.</div>';
+}
+function globalSearch(q){
+  const box=$("#globalResults");q=String(q||'').trim().toLowerCase();if(!q){box.classList.remove('open');box.innerHTML='';return}
+  const tools=db.tools.filter(x=>JSON.stringify(x).toLowerCase().includes(q)).slice(0,5).map(x=>({type:'tool',id:x.id,title:x.name,sub:`Herramienta · ${x.category||x.network||''}`}));
+  const clients=db.clients.filter(x=>JSON.stringify(x).toLowerCase().includes(q)).slice(0,5).map(x=>({type:'client',id:x.id,title:x.name||'Sin nombre',sub:`Cliente · ${x.project||x.email||''}`}));
+  const rows=[...clients,...tools].slice(0,9);box.innerHTML=rows.length?rows.map(r=>`<button class="global-result" type="button" onclick="openGlobalResult('${r.type}','${r.id}')"><i>${r.type==='client'?'C':'H'}</i><span><b>${esc(r.title)}</b><small>${esc(r.sub)}</small></span></button>`).join(''):'<div class="empty">No encuentro nada con ese nombre.</div>';box.classList.add('open')
+}
+function openGlobalResult(type,id){$("#globalResults").classList.remove('open');$("#globalQ").value='';if(type==='client'){$('.nav[data-v="clients"]').click();clientModal(id)}else{$('.nav[data-v="tools"]').click();toolModal(id)}}
+document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))$("#globalResults")?.classList.remove('open')});
+function csvRows(text){
+  const lines=String(text||'').replace(/\r/g,'').split('\n').filter(Boolean);if(!lines.length)return[];const parse=line=>{let a=[],cur='',q=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(ch===','&&!q){a.push(cur);cur=''}else cur+=ch}a.push(cur);return a};const h=parse(lines[0]).map(x=>x.trim().toLowerCase());return lines.slice(1).map(l=>{let c=parse(l),o={};h.forEach((k,i)=>o[k]=c[i]?.trim()||'');return o})
+}
+function normalizeImportedTool(x){
+  return {id:x.id||uid(),name:x.name||x.nombre||x.herramienta||'',category:x.category||x.categoria||'',description:x.description||x.descripcion||x.what||'',official_url:x.official_url||x.web||x.url||'',public_status:x.public_status||x.publicado||'Borrador',network:x.network||x.red||x.programa||'',status:x.status||x.estado||'Sin solicitar',affiliate_url:x.affiliate_url||x.enlace_afiliado||x.enlace||'',commission:x.commission||x.comision||'',recurring:String(x.recurring||x.recurrente||'').toLowerCase()==='true'||String(x.recurrente||'').toLowerCase()==='si',cookie_days:x.cookie_days||x.cookie||'',attribution:x.attribution||x.atribucion||'',payout_terms:x.payout_terms||x.pago||'',partner_contact:x.partner_contact||x.contacto||'',review_date:x.review_date||x.revision||'',notes:x.notes||x.notas||'',tracking_slug:x.tracking_slug||slug(x.name||x.nombre||x.herramienta||''),updated_at:new Date().toISOString()}
+}
+async function importCatalogFile(file){if(!file)return;const text=await file.text();let rows=[];try{if(file.name.toLowerCase().endsWith('.json')){let j=JSON.parse(text);rows=Array.isArray(j)?j:(j.tools||j.catalog||[])}else rows=csvRows(text)}catch(e){return alert('No he podido leer ese catálogo: '+e.message)}if(!rows.length)return alert('No he encontrado herramientas para importar.');let added=0,updated=0;for(const raw of rows){const r=normalizeImportedTool(raw);if(!r.name)continue;let existing=db.tools.find(t=>(t.tracking_slug&&t.tracking_slug===r.tracking_slug)||t.name.toLowerCase()===r.name.toLowerCase());if(existing){Object.assign(existing,Object.fromEntries(Object.entries(r).filter(([k,v])=>v!==''&&v!=null)),{id:existing.id});updated++}else{db.tools.push(r);added++}}save();alert(`Catálogo importado: ${added} nuevas · ${updated} actualizadas.`)}
+function exportCatalogJSON(){const rows=db.tools.filter(t=>(t.public_status||'Borrador')!=='Oculto').map(t=>({id:t.id,name:t.name,category:t.category,description:t.description||'',official_url:t.official_url||'',public_status:t.public_status||'Borrador',tracking_slug:t.tracking_slug||slug(t.name)}));const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(rows,null,2)],{type:'application/json'}));a.download='BUSCO_catalogo_web.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function fileDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open('BUSCO_CLIENT_FILES',1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('files'))r.result.createObjectStore('files')};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+async function localFilePut(id,file){const d=await fileDB();return new Promise((res,rej)=>{const tx=d.transaction('files','readwrite');tx.objectStore('files').put(file,id);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+async function localFileGet(id){const d=await fileDB();return new Promise((res,rej)=>{const r=d.transaction('files').objectStore('files').get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function localFileDelete(id){const d=await fileDB();return new Promise((res,rej)=>{const tx=d.transaction('files','readwrite');tx.objectStore('files').delete(id);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+function safeFileName(s){return String(s||'archivo').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]+/g,'_').slice(0,120)}
+function humanSize(n){n=Number(n)||0;return n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB'}
+function openClientDocuments(clientId){
+  const c=db.clients.find(x=>x.id===clientId);if(!c)return;openM(`Documentos · ${c.name||'cliente'}`,`<div class="note">Todo lo de este cliente queda aquí: presupuesto, factura, contrato, demo, diseño, HTML, PDF o cualquier otro archivo.</div><div class="doc-upload"><div><label>Nombre del documento</label><input id="docLabel" placeholder="Ej. Presupuesto inicial"></div><div><label>Tipo</label><select id="docCategory"><option>Presupuesto</option><option>Factura</option><option>Contrato</option><option>Demo</option><option>Diseño</option><option>Entrega</option><option>Briefing</option><option>Otro</option></select></div><div><label>Archivo</label><input id="docFile" type="file"></div><button class="btn" type="button" onclick="saveClientDocument('${clientId}')">Subir</button></div><div class="file-help">En modo local los archivos se guardan en este navegador. Con Supabase conectado se guardan en Storage y las personas autorizadas pueden abrirlos desde donde trabajen.</div><div id="clientDocList" class="doc-list" style="margin-top:13px"></div>`);renderClientDocuments(clientId)
+}
+function renderClientDocuments(clientId){const el=$("#clientDocList");if(!el)return;const rows=db.client_documents.filter(d=>d.client_id===clientId).sort((a,b)=>String(b.created_at||'').localeCompare(String(a.created_at||'')));el.innerHTML=rows.length?rows.map(d=>`<div class="doc-row"><div><b>${esc(d.label||d.file_name)}</b><small>${esc(d.file_name||'')} · ${humanSize(d.size_bytes)}</small></div><span class="status wait">${esc(d.category||'Otro')}</span><span class="muted small">${esc(d.uploaded_by||'')}</span><div class="doc-actions"><button class="mini" onclick="downloadClientDocument('${d.id}')">Abrir</button><button class="mini" onclick="deleteClientDocument('${d.id}')">×</button></div></div>`).join(''):'<div class="empty">Este cliente todavía no tiene documentos.</div>'}
+async function saveClientDocument(clientId){const f=$("#docFile").files[0],label=$("#docLabel").value.trim(),category=$("#docCategory").value;if(!f)return alert('Elige un archivo.');const docId=uid(),meta={id:docId,client_id:clientId,label:label||f.name,category,file_name:f.name,mime_type:f.type||'application/octet-stream',size_bytes:f.size,storage_path:'',uploaded_by:remote.email||'Local',created_at:new Date().toISOString()};if(remote.token){const path=`${clientId}/${docId}_${safeFileName(f.name)}`;const r=await fetch(`${remote.url}/storage/v1/object/client-documents/${path}`,{method:'POST',headers:{apikey:remote.key,Authorization:'Bearer '+remote.token,'Content-Type':f.type||'application/octet-stream','x-upsert':'true'},body:f});if(!r.ok)return alert('No se pudo subir el archivo: '+await r.text());meta.storage_path=path;await upsert('client_documents',meta)}else{await localFilePut(docId,f);db.client_documents.unshift(meta);save()}$("#docLabel").value='';$("#docFile").value='';renderClientDocuments(clientId);renderClients()}
+async function downloadClientDocument(id){const d=db.client_documents.find(x=>x.id===id);if(!d)return;let blob;if(remote.token&&d.storage_path){const r=await fetch(`${remote.url}/storage/v1/object/authenticated/client-documents/${d.storage_path}`,{headers:{apikey:remote.key,Authorization:'Bearer '+remote.token}});if(!r.ok)return alert('No se puede abrir: '+await r.text());blob=await r.blob()}else blob=await localFileGet(id);if(!blob)return alert('No encuentro el archivo en este navegador.');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=d.file_name||d.label||'documento';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+async function deleteClientDocument(id){if(!confirm('¿Eliminar este documento?'))return;const d=db.client_documents.find(x=>x.id===id);if(!d)return;if(remote.token){if(d.storage_path){await fetch(`${remote.url}/storage/v1/object/client-documents/${d.storage_path}`,{method:'DELETE',headers:{apikey:remote.key,Authorization:'Bearer '+remote.token}})}await del('client_documents',id)}else{await localFileDelete(id);db.client_documents=db.client_documents.filter(x=>x.id!==id);save()}renderClientDocuments(d.client_id);renderClients()}
+
+function billingModal(i=""){
+  let x=db.billing.find(v=>v.id===i)||{};
+  openM(i?"Editar ingreso / factura":"Nuevo ingreso / factura",`<div class="formgrid">
+    <div><label>Fecha</label><input id="b1" type="date" value="${esc(x.date||new Date().toISOString().slice(0,10))}"></div>
+    <div><label>Origen</label><select id="b2"><option>Servicio</option><option>Afiliación</option><option>Otro</option></select></div>
+    <div><label>Cliente / herramienta</label><input id="b3" value="${esc(x.party||"")}"></div>
+    <div><label>Concepto</label><input id="b4" value="${esc(x.concept||"")}"></div>
+    <div><label>Nº factura / documento</label><input id="b5" value="${esc(x.document_no||"")}"></div>
+    <div><label>Estado</label><select id="b6"><option>Pendiente</option><option>Parcial</option><option>Pagada</option></select></div>
+    <div><label>Base €</label><input id="b7" type="number" step=".01" value="${esc(x.base_amount??"")}"></div>
+    <div><label>IVA %</label><input id="b8" type="number" step=".01" value="${esc(x.vat_percent??"")}"></div>
+    <div><label>Total €</label><input id="b9" type="number" step=".01" value="${esc(x.total||"")}"></div>
+    <div><label>Cobrado €</label><input id="b10" type="number" step=".01" value="${esc(x.paid_amount||"")}"></div>
+    <div class="full"><label>Enlace / referencia documento</label><input id="b11" value="${esc(x.document_url||"")}"></div>
+    <div class="full"><label>Notas fiscales / internas</label><textarea id="b12">${esc(x.notes||"")}</textarea></div>
+  </div>${formActions(`saveBilling('${i}')`)}`);
+  $("#b2").value=x.source_type||"Servicio";$("#b6").value=x.status||"Pendiente";
+}
+async function saveBilling(i){
+  const base=$("#b7").value===""?null:+$("#b7").value,vat=$("#b8").value===""?null:+$("#b8").value;
+  const row={id:i||uid(),source_type:$("#b2").value,source_id:(db.billing.find(v=>v.id===i)||{}).source_id||"",
+    date:$("#b1").value,party:$("#b3").value,concept:$("#b4").value,document_no:$("#b5").value,status:$("#b6").value,
+    base_amount:base,vat_percent:vat,vat_amount:(base!=null&&vat!=null)?base*vat/100:0,total:+$("#b9").value||0,
+    paid_amount:+$("#b10").value||0,document_url:$("#b11").value,notes:$("#b12").value,updated_at:new Date().toISOString()};
+  await upsert("billing",row);closeM();
+}
+async function syncBillingFromClient(c){
+  if(!(c.invoice_number||c.payment_status==="Pagado"||c.payment_status==="Parcial")) return;
+  let existing=db.billing.find(x=>x.source_type==="Servicio"&&x.source_id===c.id);
+  const total=Number(c.invoice_total||c.budget_total||0);
+  let base=c.invoice_base==null?null:Number(c.invoice_base),vat=c.vat_percent==null?null:Number(c.vat_percent);
+  const row={id:existing?.id||uid(),source_type:"Servicio",source_id:c.id,date:c.invoice_date||new Date().toISOString().slice(0,10),
+    party:c.name,concept:c.project||"Servicio personalizado",document_no:c.invoice_number||"",base_amount:base,vat_percent:vat,
+    vat_amount:(base!=null&&vat!=null)?base*vat/100:0,total:total,paid_amount:Number(c.paid_amount||0),
+    status:c.payment_status==="Pagado"?"Pagada":c.payment_status,document_url:c.invoice_file||"",notes:"Generado desde la ficha del cliente.",updated_at:new Date().toISOString()};
+  await upsert("billing",row);
+}
+async function syncBillingFromCommission(c){
+  if(c.status!=="Pagada") return;
+  let existing=db.billing.find(x=>x.source_type==="Afiliación"&&x.source_id===c.id);
+  const total=Number(c.reported||c.expected||0);
+  const row={id:existing?.id||uid(),source_type:"Afiliación",source_id:c.id,date:c.date||new Date().toISOString().slice(0,10),
+    party:c.tool||"Herramienta",concept:"Comisión de afiliación",document_no:c.partner_id||"",base_amount:null,vat_percent:null,
+    vat_amount:0,total:total,paid_amount:total,status:"Pagada",document_url:"",notes:"Tratamiento fiscal pendiente de revisar según plataforma/pagador.",updated_at:new Date().toISOString()};
+  await upsert("billing",row);
+}
+function exportQuarterCSV(){
+  const rows=filteredBilling(),headers=["fecha","origen","cliente_herramienta","concepto","documento","base","iva_pct","iva_importe","total","cobrado","estado"];
+  const lines=[headers.join(",")];
+  rows.forEach(x=>lines.push([x.date,x.source_type,x.party,x.concept,x.document_no,x.base_amount,x.vat_percent,x.vat_amount,x.total,x.paid_amount,x.status].map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")));
+  const y=$("#billingYear").value,q=$("#billingQuarter").value;
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`BUSCO_facturacion_${y}_${q==="all"?"anual":"T"+q}.csv`;a.click();
+}
+function moneyModal(i=""){let x=db.money.find(v=>v.id===i)||{};openM(i?"Editar conversión":"Nueva conversión",`<div class="formgrid"><div><label>Fecha</label><input id="c1" type="date" value="${esc(x.date||new Date().toISOString().slice(0,10))}"></div><div><label>Herramienta</label><input id="c2" value="${esc(x.tool||"")}"></div><div><label>Venta €</label><input id="c3" type="number" step=".01" value="${esc(x.sale||"")}"></div><div><label>Esperado €</label><input id="c4" type="number" step=".01" value="${esc(x.expected||"")}"></div><div><label>Reportado €</label><input id="c5" type="number" step=".01" value="${esc(x.reported||"")}"></div><div><label>Estado</label><select id="c6"><option>Pendiente</option><option>Aprobada</option><option>Pagada</option><option>Rechazada</option></select></div><div><label>ID partner</label><input id="c7" value="${esc(x.partner_id||"")}"></div><div><label>Click / visitor ID</label><input id="c8" value="${esc(x.click_id||"")}"></div></div>${formActions(`saveMoney('${i}')`)}`);$("#c6").value=x.status||"Pendiente"}
+async function saveMoney(i){
+  const row={id:i||uid(),date:$("#c1").value,tool:$("#c2").value,sale:+$("#c3").value||0,expected:+$("#c4").value||0,reported:+$("#c5").value||0,status:$("#c6").value,partner_id:$("#c7").value,click_id:$("#c8").value,updated_at:new Date().toISOString()};
+  await upsert("money",row);await syncBillingFromCommission(row);closeM();
+}
+function issueModal(i=""){let x=db.issues.find(v=>v.id===i)||{};openM(i?"Editar incidencia":"Nueva incidencia",`<div class="formgrid"><div><label>Fecha</label><input id="i1" type="date" value="${esc(x.date||new Date().toISOString().slice(0,10))}"></div><div><label>Herramienta</label><input id="i2" value="${esc(x.tool||"")}"></div><div><label>Tipo</label><input id="i3" value="${esc(x.type||"")}"></div><div><label>Importe €</label><input id="i4" type="number" step=".01" value="${esc(x.amount||"")}"></div><div><label>Estado</label><select id="i5"><option>Abierta</option><option>En revisión</option><option>Resuelta</option></select></div><div><label>Evidencia / Click ID</label><input id="i6" value="${esc(x.evidence||"")}"></div></div>${formActions(`saveIssue('${i}')`)}`);$("#i5").value=x.status||"Abierta"}
+async function saveIssue(i){await upsert("issues",{id:i||uid(),date:$("#i1").value,tool:$("#i2").value,type:$("#i3").value,amount:+$("#i4").value||0,status:$("#i5").value,evidence:$("#i6").value,updated_at:new Date().toISOString()});closeM()}
+async function del(t,i){if(!confirm("¿Eliminar?"))return;if(remote.token){let r=await fetch(`${remote.url}/rest/v1/${t==="money"?"commissions":t}?id=eq.${i}`,{method:"DELETE",headers:rh()});if(!r.ok)return alert(await r.text());await loadRemote()}else{db[t]=db[t].filter(x=>x.id!==i);save()}}
+async function upsert(t,row){if(!remote.token){let n=db[t].findIndex(x=>x.id===row.id);n>=0?db[t][n]=row:db[t].unshift(row);save();return}let rt=t==="money"?"commissions":t,r={...row};if(t==="money"){r={id:row.id,date:row.date,tool_name:row.tool,sale_amount:row.sale,expected_commission:row.expected,reported_commission:row.reported,status:row.status,partner_transaction_id:row.partner_id,click_id:row.click_id,updated_at:row.updated_at}}let q=await fetch(`${remote.url}/rest/v1/${rt}`,{method:"POST",headers:rh({"Prefer":"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(r)});if(!q.ok)throw new Error(await q.text());await loadRemote()}
+function rh(ex={}){return{"apikey":remote.key,"Authorization":"Bearer "+remote.token,"Content-Type":"application/json",...ex}}
+async function login(){remote.url=$("#sbUrl").value.trim().replace(/\/$/,"");remote.key=$("#sbKey").value.trim();let email=$("#sbEmail").value.trim(),password=$("#sbPass").value;if(!remote.url||!remote.key||!email||!password)return alert("Faltan datos.");let r=await fetch(`${remote.url}/auth/v1/token?grant_type=password`,{method:"POST",headers:{"apikey":remote.key,"Content-Type":"application/json"},body:JSON.stringify({email,password})});if(!r.ok)return alert(await r.text());let s=await r.json();remote.token=s.access_token;remote.email=email;localStorage.setItem("busco_sb_url",remote.url);localStorage.setItem("busco_sb_key",remote.key);sessionStorage.setItem("busco_token",remote.token);sessionStorage.setItem("busco_email",email);$("#mode").textContent="Compartido";$("#loginInfo").textContent="Conectada como "+email;await loadRemote()}
+async function loadRemote(){for(let [local,t] of [["tools","tools"],["events","events"],["clients","clients"],["client_documents","client_documents"],["money","commissions"],["billing","billing"],["issues","issues"]]){let r=await fetch(`${remote.url}/rest/v1/${t}?select=*`,{headers:rh()});if(r.ok){let a=await r.json();db[local]=local==="money"?a.map(x=>({id:x.id,date:x.date,tool:x.tool_name,sale:x.sale_amount,expected:x.expected_commission,reported:x.reported_commission,status:x.status,partner_id:x.partner_transaction_id,click_id:x.click_id})):a}}render()}
+function exportCSV(){let out=[];for(let t of ["tools","events","clients","client_documents","money","billing","issues"]){out.push("### "+t);let a=db[t];if(a.length){let h=[...new Set(a.flatMap(x=>Object.keys(x)))];out.push(h.join(","));a.forEach(x=>out.push(h.map(k=>`"${String(x[k]??"").replace(/"/g,'""')}"`).join(",")))}out.push("")}let blob=new Blob([out.join("\n")],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="BUSCO_Control.csv";a.click()}
+</script>
+<script src="control.js"></script><script src="commission-import.js"></script><script src="seo.js"></script><script src="seo-editorial.js"></script><script src="control-total-v4.js"></script></body></html>

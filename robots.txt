@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /control/
+Disallow: /backup/
+Disallow: /tests/
+Disallow: /preview/
+
+Sitemap: https://buscooficial.com/sitemap.xml
