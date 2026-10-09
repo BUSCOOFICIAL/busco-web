@@ -3,7 +3,7 @@
 const cfg=window.BUSCO_CONFIG||{};
 const types=new Set(['page_view','search','tool_detail','compare_add','compare_remove','compare_open','compare_complete','affiliate_click','official_click','whatsapp_click','portfolio_open','guide_open','guide_apply','voice_play','implementation_request','partner_request_open','partner_request_submit','rating_submit']);
 const read=(s,k)=>{try{return s.getItem(k);}catch{return null;}},write=(s,k,v)=>{try{s.setItem(k,v);}catch{}},remove=(s,k)=>{try{s.removeItem(k);}catch{}};
-const CONSENT_KEY='busco_consent',CONSENT_VERSION='2026-10-08-v2',MAX_AGE=1000*60*60*24*730;
+const CONSENT_KEY='busco_consent',CONSENT_VERSION='2026-10-09-v3',MAX_AGE=1000*60*60*24*180;
 const disabled=()=>navigator.globalPrivacyControl===true;
 function lang(){const l=(window.BUSCO_CURRENT_LANG||document.documentElement.lang||'es').toLowerCase();return l.startsWith('en')?'en':l.startsWith('ca')?'ca':'es';}
 const copy={
