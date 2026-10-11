@@ -1,13 +1,5 @@
+
 /* BUSCO V12: main website only. The portfolio runs in its unchanged iframe. */
-.world-actions{gap:8px!important}
-.world-link{font-size:11px!important;line-height:1.25!important;letter-spacing:.025em!important;min-height:44px!important;padding:10px 12px!important;text-align:center;white-space:normal!important;text-shadow:none!important}
-.world-info-link{background:linear-gradient(180deg,#eaf1f7 0%,#aebac6 45%,#71808f 52%,#d8e2ec 100%)!important;border:1px solid #d7e0e9!important;color:#07101a!important;box-shadow:inset 0 1px 0 #fff8,0 2px 8px #0004!important;filter:none!important}
-.world-info-link:hover{filter:brightness(1.06)!important;box-shadow:0 2px 10px #0005!important}
-.world-compare-link{background:linear-gradient(105deg,#07343e,#17172b 45%,#45092f)!important;border:1px solid #82d8ed!important;color:#fff!important;box-shadow:0 0 5px #18dfff20,0 0 5px #ff2fb71a!important}
-.world-link span{font-size:inherit!important;line-height:inherit!important;letter-spacing:inherit!important}
-body #mundos .world-card .world-actions .world-link{font-size:11px!important;line-height:1.35!important}
-body #mundos .world-card .world-actions .world-link span{font-size:inherit!important;line-height:inherit!important}
-.bc-card-actions button,.bc-card-actions a{font-size:11px!important;line-height:1.3!important;min-height:44px!important;height:auto!important;padding:12px!important;white-space:normal!important;text-align:center}
 .bc-web-link:not(.bc-affiliate-link):not([data-seo-link]){border:1px solid #446071!important;color:#d2e2ed!important;background:#0a1621!important;opacity:1!important}
 .bc-commercial-chip{font-size:10px!important;line-height:1.3!important;white-space:normal!important;text-align:center}
 .bc-commercial-note,.bc-affiliate-disclosure{font-size:12px!important;line-height:1.55!important;color:#c3cddb!important}
@@ -15,7 +7,6 @@ body #mundos .world-card .world-actions .world-link span{font-size:inherit!impor
 .bc-card-desc,.bc-card-reason p,.bc-card-note p{font-size:13px!important;line-height:1.6!important}
 .bc-understood[hidden]{display:none!important}
 .bc-modal-shell{max-height:calc(100dvh - 32px)!important;overscroll-behavior:contain}
-.bc-detail-actions a,.bc-detail-actions button,.bc-audio-button,.bc-guide-actions button{min-height:44px!important;height:auto!important;font-size:12px!important;padding:12px 16px!important;white-space:normal!important;text-align:center}
 .bc-top-scroll,.bc-table-wrap{overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .busco-ui-dialog-open .busco-partner-float{visibility:hidden!important;pointer-events:none!important}
 body.busco-ui-dialog-open #buscoPrivacyButton,body.busco-comparing #buscoPrivacyButton{visibility:hidden!important;pointer-events:none!important}
@@ -79,8 +70,6 @@ body #buscoPartnerModal .busco-partner-submit{min-height:48px!important;font-siz
  .world-card h3{font-size:21px!important;line-height:1.3!important}
  .world-card p{font-size:14px!important;line-height:1.5!important;min-height:42px!important}
  .world-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
- .world-link{font-size:12px!important;min-height:48px!important;padding:12px 8px!important}
- body #mundos .world-card .world-actions .world-link{font-size:12px!important;line-height:1.35!important}
  .build-shell-v55{padding:20px!important;gap:28px!important;grid-template-columns:1fr!important}
  .build-lead-v55{font-size:15px!important}
  .build-custom-v55 strong{font-size:16px!important}
@@ -116,7 +105,6 @@ body #buscoPartnerModal .busco-partner-submit{min-height:48px!important;font-siz
  .bc-card-top{gap:10px!important;flex-wrap:wrap!important}.bc-card-top-actions{gap:6px!important;flex-wrap:wrap!important}
  .bc-card-desc,.bc-card-reason p,.bc-card-note p{font-size:14px!important}.bc-card-reason small,.bc-card-note small{font-size:11px!important}
  .bc-badges span{font-size:11px!important;min-height:28px!important;padding:6px 8px!important}
- .bc-card-actions{gap:10px!important}.bc-card-actions a,.bc-card-actions button{min-height:48px!important;font-size:12px!important}
  .bc-service-cta,.bc-decision-help{padding:20px!important}.bc-service-cta p,.bc-decision-help p{font-size:15px!important;line-height:1.6!important;color:#e1c5dd!important;-webkit-text-fill-color:#e1c5dd!important;background:none!important;filter:none!important}
  .bc-service-cta h3,.bc-decision-help h3{font-size:21px!important;line-height:1.35!important}
  .bc-service-actions{flex-wrap:wrap!important}.bc-service-actions button,.bc-decision-help button{min-height:48px!important;height:auto!important;font-size:13px!important;line-height:1.5!important;padding:12px!important;white-space:normal!important}
