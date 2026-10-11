@@ -1,0 +1,12 @@
+/* BUSCO v2026-10-11: final detail layout; matches inspected DOM */
+#bcDetail .bc-detail-actions{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:100%!important}
+#bcDetail .bc-detail-actions>a[data-seo-link]{display:none!important}
+#bcDetail .bc-detail-actions>a:not([data-seo-link]){order:1!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:1 1 0!important;min-width:0!important;min-height:36px!important;height:36px!important;width:auto!important;padding:0 10px!important;border-radius:999px!important;font-size:10px!important;line-height:1.1!important;text-align:center!important;white-space:normal!important}
+#bcDetail .bc-detail-actions>a[data-busco-affiliate]{background:linear-gradient(100deg,#00bfd6,#b2ebf9 35%,#e72ba9 75%,#a5578d)!important;color:#fff!important}
+#bcDetail .bc-detail-actions>a:not([data-busco-affiliate]):not([data-seo-link]){background:#080d17!important;color:#d1e8f4!important;border:1px solid #23839b!important}
+#bcDetail .bc-detail-actions>button[data-detail-compare]{order:2!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;max-width:52%!important;min-height:36px!important;height:36px!important;width:auto!important;padding:0 12px!important;border:1px solid #e72ba9!important;border-radius:999px!important;background:#080d17!important;color:#fff!important;font-size:9px!important;white-space:nowrap!important}
+#bcDetail .bc-related .bc-related-actions{display:flex!important;flex-direction:row!important;gap:5px!important}
+#bcDetail .bc-related .bc-related-actions>*{min-width:0!important;flex:1 1 0!important}
+#bcDetail .bc-related .bc-related-actions>:first-child{border-color:#18dfff!important}
+#bcDetail .bc-related .bc-related-actions>:last-child{border-color:#ff2fb7!important}
+@media(max-width:480px){#bcDetail .bc-detail-actions{gap:5px!important}#bcDetail .bc-detail-actions>a:not([data-seo-link]){font-size:9px!important;padding:0 5px!important}#bcDetail .bc-detail-actions>button[data-detail-compare]{font-size:8px!important;padding:0 6px!important;max-width:58%!important}}
