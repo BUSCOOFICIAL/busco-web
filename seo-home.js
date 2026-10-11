@@ -7,3 +7,15 @@ const c=query.get('categoria');if(c&&routes.categories[c])window.futureRoute?.(c
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
+
+/* Favicon oficial BUSCO */
+(function () {
+  let icon = document.querySelector('link[rel="icon"]');
+  if (!icon) {
+    icon = document.createElement('link');
+    icon.rel = 'icon';
+    document.head.appendChild(icon);
+  }
+  icon.type = 'image/x-icon';
+  icon.href = '/favicon.ico?v=20261011';
+})();
